@@ -144,6 +144,11 @@ TXP:0,0,5,65535,667,21,1,1,2,2,1,2,1,1,2,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,2,2,1,1,2
 
 [Quelle](http://simple-solutions.de/forum/viewtopic.php?p=2527#p2527)
 
+Weitere Hauscodes können wie folgt erstellt werden:
+
+```
+printf "%012d\n" `echo "obase=2;<int value>" | bc`
+```
 
 ###Beispielcodes###
 
