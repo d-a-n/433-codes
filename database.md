@@ -182,5 +182,79 @@ ON: `TXP:0,0,5,65535,667,21,1,1,2,2,1,2,1,1,2,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,2,2,
 
 OFF: `TXP:0,0,5,65535,667,21,1,1,2,2,1,2,1,1,2,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,2,2,1,2,1,2,1,1,2,1,2,1,2,1,2,2,1,16,;`
 
+###Alternative Codes###
+Einige Quigg-Steckdosensysteme arbeiten mit einem minimal veränderten Protokoll. Die Bits sind hier kodiert:
 
-	
+1 Bit: Ein Takt aus, ein Takt ein, ein Takt aus
+0 Bit: Zwei Takte ein, ein Takt aus
+
+Die Taktung ist 1.812 kHz, zwischen je zwei Wiederholungen liegen 72 ms Pause. Die Codes lauten:
+
+```
+1 an        1 1 0 1 1 0 1 0 1 1 1 0 1 0 0 0 1 0 0 0 1
+1 aus       1 1 0 1 1 0 1 0 1 1 1 0 1 0 0 0 0 0 0 0 0
+
+2 an        1 1 0 1 1 0 1 0 1 1 1 0 1 1 0 0 1 0 0 1 1
+2 aus       1 1 0 1 1 0 1 0 1 1 1 0 1 1 0 0 0 0 0 1 0
+
+3 an        1 1 0 1 1 0 1 0 1 1 1 0 1 0 1 0 1 0 0 0 0
+3 aus       1 1 0 1 1 0 1 0 1 1 1 0 1 0 1 0 0 0 0 0 1
+
+4 an        1 1 0 1 1 0 1 0 1 1 1 0 1 1 1 0 1 0 0 1 0
+4 aus       1 1 0 1 1 0 1 0 1 1 1 0 1 1 1 0 0 0 0 1 1
+
+master an   1 1 0 1 1 0 1 0 1 1 1 0 1 1 1 1 1 0 0 0 0
+master aus  1 1 0 1 1 0 1 0 1 1 1 0 1 1 1 1 0 0 0 0 1
+
+(z.B. für Steckdose 4:)
+dim an      1 1 0 1 1 0 1 0 1 1 1 0 1 1 1 0 0 1 0 0 1
+dim aus     1 1 0 1 1 0 1 0 1 1 1 0 1 1 1 0 1 1 0 0 0
+            \-----------------------/ \---/ - - - - -
+                  System-ID            id   o d 0 v p
+                                        \--------/
+                                         Funktion
+
+                                         o == on/off
+                                         d == dimmen/nicht dimmen
+                                         v == prüfziffer für id (??)
+                                         p == paritätsbit
+```
+
+Die System-ID ist frei wählbar. Der Funktionscode bestimmt, welche Steckdose
+wie geschaltet werden soll. Bit 4 kodiert dabei, ob ein- oder ausgeschaltet
+wird. id ist die ID der Steckdose, per 1 1 1 werden alle Steckdosen
+angesprochen.  Das zweite Bit von on? wird zum Dimmen gesetzt. v ist scheinbar
+ein Paritätsbit für Bits 1 und 3 der id. Das Paritätsbit wird über den gesamten
+Code gebildet und invertiert.
+
+##Type Nr. 401##
+Hersteller: NPCDTM Ltd.
+
+Diese Steckdosen hat Conrad früher einmal vertrieben. An den Steckdosen und der
+Fernbedienung ist ein dreistelliger, binärer Systemcode einstellbar. Das
+Übertragungsprotokoll entspricht fast dem der Quigg-Steckdosen oben: Es wird mit 1.814 kHz mit 3 Takten
+kodiert. Ein 0 Bit wird als "Aus, Ein, Aus" kodiert, eine 1 als "Ein, Ein, Aus". Zwischen den Sequenzen
+ist je 20.318ms Pause. Die genaue Einhaltung der Zeiten ist hier sehr wichtig, ggfs. lohnt es sich, eine
+Empfängereinheit über den Mikrofoneingang der Soundkarte in Kombination mit einem Aufnahmeprogramm zur
+Feineinstellung zu verwenden. ([Siehe z.B.](http://gimlie.net/433-mhz-signale-auslesen-und-auswerten/))
+
+Die Codes lauten:
+
+```
+#1 an   0 1 1 1 0 x x x 0 0 0 0 0
+#1 aus  0 0 1 1 0 x x x 0 0 0 0 0
+#2 an   0 1 1 0 0 x x x 0 0 0 0 0
+#2 aus  0 0 1 0 0 x x x 0 0 0 0 0
+#3 an   0 1 0 1 0 x x x 0 0 0 0 0
+#3 aus  0 0 0 1 0 x x x 0 0 0 0 0
+#4 an   0 1 0 0 1 x x x 0 0 0 0 0
+#4 aus  0 0 0 0 1 x x x 0 0 0 0 0
+        - - \---/ \---/ \-------/
+        1 2   3     4       5
+
+       1: Initialisierungsbit
+       2: An/Aus
+       3: Steckdosen ID wie im Werkszustand
+       4: Umgekehrter System-Code (1 0 0 für Schalter auf Aus, Aus, An)
+       5: Endbits
+```
