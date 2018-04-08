@@ -1,7 +1,7 @@
 Die Codes können z.B. mit dem ConnAir Home Automation Gateway von Simple Solutions getestet werden.
 
-	$ echo $CODE | nc -w 1 -u <ip> 49880 
-	
+  $ echo $CODE | nc -w 1 -u <ip> 49880 
+  
 ## REV ##
 Hersteller: REV-Ritter GmbH
 
@@ -64,7 +64,7 @@ ON: `TXP:0,0,10,5600,350,25,1,3,3,1,3,1,3,1,1,3,3,1,1,3,3,1,1,3,3,1,1,3,3,1,3,1,
 
 OFF: `TXP:0,0,10,5600,350,25,1,3,3,1,3,1,3,1,1,3,3,1,1,3,3,1,1,3,3,1,1,3,3,1,3,1,3,1,1,3,1,3,1,3,3,1,1,3,3,1,1,3,1,3,1,3,1,3,1,16;`
 
-##Quigg##
+## Quigg ##
 Hersteller: Globaltronics GmbH
 
 Weitere Modelle:
@@ -150,7 +150,7 @@ Weitere Hauscodes können wie folgt erstellt werden:
 printf "%012d\n" `echo "obase=2;<int value>" | bc`
 ```
 
-###Beispielcodes###
+### Beispielcodes ###
 
 **B1**
 
@@ -182,7 +182,7 @@ ON: `TXP:0,0,5,65535,667,21,1,1,2,2,1,2,1,1,2,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,2,2,
 
 OFF: `TXP:0,0,5,65535,667,21,1,1,2,2,1,2,1,1,2,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,2,2,1,2,1,2,1,1,2,1,2,1,2,1,2,2,1,16,;`
 
-###Alternative Codes###
+### Alternative Codes ###
 Einige Quigg-Steckdosensysteme arbeiten mit einem minimal veränderten Protokoll. Die Bits sind hier kodiert:
 
 1 Bit: Ein Takt aus, ein Takt ein, ein Takt aus
@@ -227,7 +227,7 @@ angesprochen.  Das zweite Bit von on? wird zum Dimmen gesetzt. v ist scheinbar
 ein Paritätsbit für Bits 1 und 3 der id. Das Paritätsbit wird über den gesamten
 Code gebildet und invertiert.
 
-##Type Nr. 401##
+## Type Nr. 401 ##
 Hersteller: NPCDTM Ltd.
 
 Diese Steckdosen hat Conrad früher einmal vertrieben. An den Steckdosen und der
